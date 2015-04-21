@@ -17,10 +17,7 @@ if site=="wakame":
 else:
         url = "http://jinrou.dip.jp/~jinrou/cgi_jinro.cgi?room"
 htmldata = urllib2.urlopen(url)
-#print unicode(htmldata.read(),"utf-8")
-#print "<html><body>"
 import html_kaisou
 html_kaisou.test_kaisouka(htmldata.read())
-#print "</body></html>"
 htmldata.close()
 

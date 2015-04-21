@@ -6,24 +6,28 @@ def bs4():
     from bs4 import BeautifulSoup
     form = cgi.FieldStorage()
     if not form.has_key("site"):
-            site="null"
+        site="null"
     else:
-            site   = form["site"].value
+        site   = form["site"].value
     import sys 
     if len(sys.argv)!=1:
-            url = sys.argv[1]
+        url = sys.argv[1]
     elif site=="wakame":
-            url = "http://jinrou.dip.jp/~jinrou/kako/143356.html"
+        url = "http://jinrou.dip.jp/~jinrou/kako/143356.html"
     else:
-            url = "http://jinrou.dip.jp/~jinrou/cgi_jinro.cgi?room"
+        url = "http://jinrou.dip.jp/~jinrou/cgi_jinro.cgi?room"
     filename=url.split("/")
     filename=filename[len(filename)-1]
     import subprocess
+    cmd="rm -f %s" % filename
+    cmd=cmd.split(" ")
+    subprocess.call(cmd)
     cmd="wget %s" % url
-    cmd=cmd.split()
+    cmd=cmd.split(" ")
     ret = subprocess.call(cmd)
     if ret!=0:
-            return ret
+        print "error: bs4_html.py bs4()."
+        return ret
     html_doc=open(filename,"r").read()
 
     from bs4 import BeautifulSoup
@@ -32,6 +36,6 @@ def bs4():
     print(soup.prettify())
 
 
-
 if __name__=="__main__":
     bs4()
+
